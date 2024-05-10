@@ -102,32 +102,24 @@ function debounce(func, wait, immediate) {
 };
 
 // SCROLL WHEEL CONTROL
-let canScroll = true;
-let scrollDirection = null;
-$(this).on("wheel", debounce(function (event) {
-  if (!canScroll) return;
-  canScroll = false;
+let isScrolling = false;
+$(this).on("wheel", function (event) {
+  if (isScrolling) return;
 
-  if (event.originalEvent.deltaY < 0) {
-    // Scroll up
-    scrollDirection = "up";
-  } else {
-    // Scroll down
-    scrollDirection = "down";
-  }
-
+  isScrolling = true;
   setTimeout(function () {
-    canScroll = true;
-  }, 500); // Adjust the delay as needed (in milliseconds)
+    isScrolling = false;
+  }, 1000); // Assuming slide transition takes 1 second
 
   event.preventDefault();
-  if (scrollDirection === "up") {
+  if (event.originalEvent.deltaY < 0) {
+    // Scroll up
     let nextIndex = activeIndex - 1;
     if (nextIndex < 0) nextIndex = totalSlides - 1;
     moveSlide(nextIndex, false);
   } else {
+    // Scroll down
     goNext(activeIndex + 1);
   }
-}, 1000), true); // 200ms debounce time
 });
 // CHECKING FOR UPDATE
