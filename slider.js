@@ -122,4 +122,5 @@ $(this).on("wheel", function (event) {
     goNext(activeIndex + 1);
   }
 });
-// CHECKING FOR UPDATE
+
+// WOKRING?
