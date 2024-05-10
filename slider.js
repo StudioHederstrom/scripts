@@ -101,7 +101,7 @@ function debounce(func, wait, immediate) {
   };
 };
 
-// SCROLL WHEEL CONTROL
+// SCROLL WHEEL CONTROL TES TTETSTS STST STS 
 let isScrolling = false;
 $(this).on("wheel", function (event) {
   if (isScrolling) return;
@@ -122,5 +122,3 @@ $(this).on("wheel", function (event) {
     goNext(activeIndex + 1);
   }
 });
-
-// WOKRING?
