@@ -85,32 +85,48 @@ $(".slider_wrap").each(function () {
     }
   });
 
-  // SCROLL WHEEL CONTROL
-  let canScroll = true;
-  let scrollDirection = null;
-  $(this).on("wheel", function (event) {
-    if (!canScroll) return;
-    canScroll = false;
+  // Debounce function
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function() {
+    var context = this, args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
 
-    if (event.originalEvent.deltaY < 0) {
-      // Scroll up
-      scrollDirection = "up";
-    } else {
-      // Scroll down
-      scrollDirection = "down";
-    }
+// SCROLL WHEEL CONTROL
+let canScroll = true;
+let scrollDirection = null;
+$(this).on("wheel", debounce(function (event) {
+  if (!canScroll) return;
+  canScroll = false;
 
-    setTimeout(function () {
-      canScroll = true;
-    }, 500); // Adjust the delay as needed (in milliseconds)
+  if (event.originalEvent.deltaY < 0) {
+    // Scroll up
+    scrollDirection = "up";
+  } else {
+    // Scroll down
+    scrollDirection = "down";
+  }
 
-    event.preventDefault();
-    if (scrollDirection === "up") {
-      let nextIndex = activeIndex - 1;
-      if (nextIndex < 0) nextIndex = totalSlides - 1;
-      moveSlide(nextIndex, false);
-    } else {
-      goNext(activeIndex + 1);
-    }
-  });
+  setTimeout(function () {
+    canScroll = true;
+  }, 500); // Adjust the delay as needed (in milliseconds)
+
+  event.preventDefault();
+  if (scrollDirection === "up") {
+    let nextIndex = activeIndex - 1;
+    if (nextIndex < 0) nextIndex = totalSlides - 1;
+    moveSlide(nextIndex, false);
+  } else {
+    goNext(activeIndex + 1);
+  }
+}, 200), true); // 200ms debounce time
 });
