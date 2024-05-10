@@ -1,5 +1,4 @@
 
-<script>
 let splitType = new SplitType(".slider_cms_title", {
   types: "words, chars",
   tagName: "span"
@@ -115,4 +114,3 @@ $(".slider_wrap").each(function () {
     }
   });
 });
-</script>
