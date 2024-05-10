@@ -1,5 +1,4 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
-<script src="https://unpkg.com/split-type"></script>
+
 <script>
 let splitType = new SplitType(".slider_cms_title", {
   types: "words, chars",
