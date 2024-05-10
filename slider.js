@@ -128,5 +128,6 @@ $(this).on("wheel", debounce(function (event) {
   } else {
     goNext(activeIndex + 1);
   }
-}, 200), true); // 200ms debounce time
+}, 1000), true); // 200ms debounce time
 });
+// CHECKING FOR UPDATE
